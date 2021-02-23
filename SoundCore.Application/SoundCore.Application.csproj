@@ -8,4 +8,16 @@
     <ProjectReference Include="..\SoundCore.Domain\SoundCore.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Appointments\Commands\" />
+    <Folder Include="Features\Appointments\Queries\" />
+    <Folder Include="Features\Rooms\Commands\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+  </ItemGroup>
+
 </Project>
