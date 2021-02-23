@@ -1,6 +1,6 @@
 ﻿namespace SoundCore.Domain.Enum
 {
-    public enum AppointmentState
+    public enum RoomState
     {
        NotDefined = 0,
        Active = 1,

@@ -8,7 +8,7 @@ namespace SoundCore.Domain.Entities
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public AppointmentState State { get; set; }
+        public RoomState State { get; set; }
         public DateTime CreationDate { get; set; }
     }
 }
