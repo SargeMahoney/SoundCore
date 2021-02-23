@@ -7,5 +7,10 @@ namespace SoundCore.Application.Features.Rooms.Commands.CreateRoom
         public string Name { get; set; }
         public string Description { get; set; }
 
+        public override string ToString()
+        {
+            return $"Created new Room {Name} ";
+        }
+
     }
 }
