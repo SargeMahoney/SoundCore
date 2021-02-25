@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoundCore.Infrastructure", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoundCore.Persistence", "SoundCore.Persistence\SoundCore.Persistence.csproj", "{A646FC16-2D64-4DD5-9869-EB9BDF1BC5B8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoundCore.Server", "SoundCore.Server\SoundCore.Server.csproj", "{46E2AE75-618C-41D9-83EB-6A2709CF0731}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{A646FC16-2D64-4DD5-9869-EB9BDF1BC5B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A646FC16-2D64-4DD5-9869-EB9BDF1BC5B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A646FC16-2D64-4DD5-9869-EB9BDF1BC5B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46E2AE75-618C-41D9-83EB-6A2709CF0731}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46E2AE75-618C-41D9-83EB-6A2709CF0731}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46E2AE75-618C-41D9-83EB-6A2709CF0731}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46E2AE75-618C-41D9-83EB-6A2709CF0731}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +61,7 @@ Global
 		{108A547D-4608-4F2D-B874-D7B50EC1BDD5} = {57209917-9987-43C8-9AEE-94088A3B96E6}
 		{052A4FF6-88BA-41BB-8995-4F14C4A65479} = {3E946CBD-F2E9-4CBB-9AE0-A565674DF9DB}
 		{A646FC16-2D64-4DD5-9869-EB9BDF1BC5B8} = {3E946CBD-F2E9-4CBB-9AE0-A565674DF9DB}
+		{46E2AE75-618C-41D9-83EB-6A2709CF0731} = {C1174FF1-3719-4E56-B5FB-F1F12BC099CF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C901BFBB-83D8-41EC-A749-6A8A87E80F08}
