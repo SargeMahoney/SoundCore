@@ -1,16 +1,13 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.WindowsServices;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-
-using Microsoft.Extensions.Logging;
-
+using Serilog;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace SoundCore.Server
 {
@@ -19,7 +16,16 @@ namespace SoundCore.Server
         public static void Main(string[] args)
         {
             var StartAsService = true;
-          
+
+            var config = new ConfigurationBuilder()
+                       .AddJsonFile("appsettings.json")
+                       .Build();
+
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(config)
+                .WriteTo.File(AppDomain.CurrentDomain.BaseDirectory + @"Log/log.txt", rollingInterval: RollingInterval.Day)
+                .CreateLogger();
+
             if (StartAsService)
             {
                 StartAspCoreAsService(args);
@@ -30,13 +36,15 @@ namespace SoundCore.Server
             }
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
-
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            return Host.CreateDefaultBuilder(args)
+                      .UseSerilog()
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+            });
+        }
 
         private static void StartAspCoreAsService(string[] args)
         {
@@ -49,11 +57,12 @@ namespace SoundCore.Server
                 pathToContentRoot = Path.GetDirectoryName(pathToExe);
             }
             var host = WebHost.CreateDefaultBuilder(webHostArgs)
-               .UseContentRoot(pathToContentRoot)
+                       .UseSerilog()
+               .UseContentRoot(pathToContentRoot)                 
                .UseStartup<Startup>()
                .Build();
             if (isService)
-            {
+            {           
                 host.RunAsService();
             }
             else
