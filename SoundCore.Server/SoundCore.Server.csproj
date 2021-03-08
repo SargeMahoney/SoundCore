@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SoundCore.Application\SoundCore.Application.csproj" />
+    <ProjectReference Include="..\SoundCore.BlazorComponents\SoundCore.BlazorComponents.csproj" />
     <ProjectReference Include="..\SoundCore.Infrastructure\SoundCore.Infrastructure.csproj" />
     <ProjectReference Include="..\SoundCore.Persistence\SoundCore.Persistence.csproj" />
   </ItemGroup>

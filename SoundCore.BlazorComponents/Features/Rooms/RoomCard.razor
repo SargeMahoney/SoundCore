@@ -1,0 +1,18 @@
+﻿@using SoundCore.Domain.Entities
+@if (Room != null)
+{
+    <div class="card" style="width: 18rem;">
+        <div class="card-title">@Room.Name</div>
+        <div class="card-body">
+            <p class="card-text">@Room.Description</p>
+        </div>
+    </div>
+}
+
+
+@code {
+
+
+    [Parameter]
+    public Room Room { get; set; }
+}
