@@ -14,6 +14,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Syncfusion.Blazor" Version="18.4.0.46" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\SoundCore.Application\SoundCore.Application.csproj" />
     <ProjectReference Include="..\SoundCore.Domain\SoundCore.Domain.csproj" />
   </ItemGroup>

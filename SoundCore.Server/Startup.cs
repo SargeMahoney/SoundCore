@@ -10,11 +10,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SoundCore.Application;
+using SoundCore.Application.Contracts.DataServices;
+using SoundCore.BlazorComponents;
 using SoundCore.Persistence.SqlServer;
 using SoundCore.Server.Areas.Identity;
 using SoundCore.Server.Data;
 using SoundCore.Server.Services.Appointments;
 using SoundCore.Server.Services.Rooms;
+using Syncfusion.Blazor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,8 +58,8 @@ namespace SoundCore.Server
 
             services.AddApplicationServices();
             services.AddSqlServerPersistenceServicesRegistration(Configuration);
-
-
+            services.AddBlazorComponentsServices();
+            services.AddSyncfusionBlazor();
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();

@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SoundCore.Server.Services.Rooms
+namespace SoundCore.Application.Contracts.DataServices
 {
-    public interface IRoomsDataService : IRoomsRepository
+    public interface IAppointmentDataService : IAppointmentRepository
     {
-       
     }
 }

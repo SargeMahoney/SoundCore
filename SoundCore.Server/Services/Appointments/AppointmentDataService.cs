@@ -1,4 +1,5 @@
-﻿using SoundCore.Application.Models.Results;
+﻿using SoundCore.Application.Contracts.DataServices;
+using SoundCore.Application.Models.Results;
 using SoundCore.Domain.Entities;
 using System;
 using System.Collections.Generic;

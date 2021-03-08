@@ -1,0 +1,8 @@
+﻿@using Syncfusion.Blazor.Schedule
+@using SoundCore.Domain.Entities
+
+
+
+<SfSchedule TValue="AppointmentData" Height="800px" @bind-SelectedDate="@CurrentDate" >
+    <ScheduleEventSettings DataSource="@Data"></ScheduleEventSettings>
+   </SfSchedule>
