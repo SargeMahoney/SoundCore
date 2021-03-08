@@ -16,7 +16,7 @@ namespace SoundCore.Persistence.SqlServer
             services.AddSingleton<IDatabaseSetting>(sp => sp.GetRequiredService<IOptions<DatabaseSetting>>().Value);
 
             services.AddTransient<IRoomsRepository, RoomsRepository>();
-            services.AddScoped<IRoomsRepository, RoomsRepository>();
+            services.AddTransient<IAppointmentRepository, AppointmentRepository>();
 
             return services;
          

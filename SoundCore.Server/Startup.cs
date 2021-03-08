@@ -13,6 +13,7 @@ using SoundCore.Application;
 using SoundCore.Persistence.SqlServer;
 using SoundCore.Server.Areas.Identity;
 using SoundCore.Server.Data;
+using SoundCore.Server.Services.Appointments;
 using SoundCore.Server.Services.Rooms;
 using System;
 using System.Collections.Generic;
@@ -62,6 +63,10 @@ namespace SoundCore.Server
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddHttpClient<IRoomsDataService, RoomDataService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:5001/");
+            });
+            services.AddHttpClient<IAppointmentDataService, AppointmentDataService>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:5001/");
             });

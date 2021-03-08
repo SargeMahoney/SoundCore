@@ -1,4 +1,5 @@
 ﻿@inject Services.Rooms.IRoomsDataService _roomService
+@inject Services.Appointments.IAppointmentDataService _appointmentService
 @using Domain.Entities
 
 @page "/"
@@ -20,15 +21,36 @@
 
 }
 
+
+
+@if (Appointments != null)
+{
+    @foreach (var item2 in Appointments)
+    {
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">@item2.Id</h5>
+                <p class="card-text">@item2.Room.Name</p>
+                <p class="card-text">@item2.Start.ToShortDateString() - @item2.Start.ToShortTimeString()</p>
+                <p class="card-text">@item2.End.ToShortDateString() - @item2.End.ToShortTimeString()</p>
+            </div>
+        </div>
+    }
+
+}
+
 @code{
 
     IEnumerable<Room> Rooms { get; set; }
+
+    IEnumerable<Appointment> Appointments { get; set; }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
             Rooms = await _roomService.ListAllAsync();
+            Appointments = await _appointmentService.ListAllAsync();
             this.StateHasChanged();
         }
 

@@ -20,8 +20,8 @@ namespace SoundCore.Application.Features.Rooms.Queries.GetRoomsList
         }
         public async Task<List<RoomListVm>> Handle(GetRoomListQuery request, CancellationToken cancellationToken)
         {
-            var allCategories = (await this._roomRepository.ListAllAsync()).OrderBy(x => x.Name);
-            return this._mapper.Map<List<RoomListVm>>(allCategories);
+            var allRooms = (await this._roomRepository.ListAllAsync()).OrderBy(x => x.Name);
+            return this._mapper.Map<List<RoomListVm>>(allRooms);
         }
     }
 }

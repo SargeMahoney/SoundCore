@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using SoundCore.Application.Features.Appointments.Queries.GetAppointmentList;
 using SoundCore.Application.Features.Rooms.Commands.CreateRoom;
 using SoundCore.Application.Features.Rooms.Queries.GetRoomsList;
 using SoundCore.Domain.Entities;
@@ -13,6 +14,8 @@ namespace SoundCore.Application.Profiles
 
             CreateMap<CreateRoomDto, Room>().ReverseMap();
             CreateMap<CreateRoomCommand, Room>().ReverseMap();
+
+            CreateMap<Appointment, AppointMentListVm>().ReverseMap();
         }
     }
 }
