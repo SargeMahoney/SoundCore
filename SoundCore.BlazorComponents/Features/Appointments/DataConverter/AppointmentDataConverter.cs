@@ -37,6 +37,29 @@ namespace SoundCore.BlazorComponents.Features.Appointments.DataConverter
             };
         }
 
+        public Appointment ConvertAppointmentDataToAppointment(AppointmentData appointmentData)
+        {
+            try
+            {
+                return new Appointment()
+                {
+                    Id = appointmentData.Id,
+                    CreationDate = DateTime.Now,
+                    End = appointmentData.EndTime,
+                    Start = appointmentData.StartTime,
+                    Owner = appointmentData.Subject,
+                    RoomId = appointmentData.RoomId
+                };
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+
+        }
+
         public IEnumerable<AppointmentData> ConvertAppointmentListToAppointmentData(List<Appointment> appointment)
         {
             List<AppointmentData> data = new List<AppointmentData>();

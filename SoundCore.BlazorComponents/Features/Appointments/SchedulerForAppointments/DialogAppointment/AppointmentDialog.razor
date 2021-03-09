@@ -23,24 +23,10 @@
         </div>
         <div class="col-6 form-group">
             <label for="Owner">Owner</label>
-            <SfTextBox Value="@Appointment.Subject"></SfTextBox>
+            <SfTextBox @bind-Value="@Appointment.Subject"></SfTextBox>
             <ValidationMessage For="() => Appointment.Subject" />
         </div>
-    </div>
-    <div class="row">
-        <div class="col-6 form-group">
-            <label for="Room">Room</label>
-            <SfDropDownList TValue="Guid" TItem="Room" Placeholder="Select a room" DataSource="@Rooms" ID="Room" @bind-Value="Appointment.RoomId">
-                <DropDownListFieldSettings Value="Id" Text="Name"></DropDownListFieldSettings>
-            </SfDropDownList>
-            <ValidationMessage For="() => Appointment.RoomId" />
-        </div>
-        <div class="col-6 form-group">
-            <label for="Owner">Owner</label>
-            <SfTextBox Value="@Appointment.Subject"></SfTextBox>
-            <ValidationMessage For="() => Appointment.Subject" />
-        </div>
-    </div>
+    </div> 
 
 </div>
 }

@@ -8,5 +8,6 @@ namespace SoundCore.BlazorComponents.Features.Appointments.DataConverter
     {
         IEnumerable<AppointmentData> ConvertAppointmentListToAppointmentData(List<Appointment> appointment);
         AppointmentData ConvertAppointmentToAppointmentData(Appointment appointment);
+        Appointment ConvertAppointmentDataToAppointment(AppointmentData appointmentData); 
     }
 }

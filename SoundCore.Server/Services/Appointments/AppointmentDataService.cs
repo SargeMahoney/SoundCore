@@ -1,10 +1,13 @@
-﻿using SoundCore.Application.Contracts.DataServices;
+﻿using AutoMapper;
+using SoundCore.Application.Contracts.DataServices;
+using SoundCore.Application.Features.Appointments.Commands.AddAppointment;
 using SoundCore.Application.Models.Results;
 using SoundCore.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -13,15 +16,36 @@ namespace SoundCore.Server.Services.Appointments
     public class AppointmentDataService : IAppointmentDataService
     {
         private readonly HttpClient _httpClient;
+        private readonly IMapper _mapper;
 
-
-        public AppointmentDataService(HttpClient httpClient)
+        public AppointmentDataService(HttpClient httpClient, IMapper mapper)
         {
             _httpClient = httpClient;
+            this._mapper = mapper;
         }
-        public Task<Appointment> AddAsync(Appointment entity)
+        public async Task<Appointment> AddAsync(Appointment entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+                var entityJson =
+                new StringContent(JsonSerializer.Serialize(entity), Encoding.UTF8, "application/json");
+
+                var response = await _httpClient.PostAsync($"api/appointment/create", entityJson);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return await JsonSerializer.DeserializeAsync<Appointment>(await response.Content.ReadAsStreamAsync());
+                }
+
+                return null;
+
+             
+            }
+            catch (Exception ex)
+            {
+                throw new Exception();
+            }
         }
 
         public Task<BaseResult> DeleteAsync(Appointment entity)
@@ -44,5 +68,7 @@ namespace SoundCore.Server.Services.Appointments
         {
             throw new NotImplementedException();
         }
+
+       
     }
 }

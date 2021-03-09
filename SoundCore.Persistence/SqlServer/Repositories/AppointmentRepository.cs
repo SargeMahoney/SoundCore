@@ -23,9 +23,9 @@ namespace SoundCore.Persistence.SqlServer.Repositories
             {
                 try
                 {
-                    var sQuery = @"INSERT INTO  d_Appointments (RoomId, Owner, Start, End)" +
-                                   "OUTPUT INSERTED.[Id] VALUES  " +
-                                   "(@RoomId, @Owner, @Start, @End )";
+                    var sQuery = @"INSERT INTO  d_Appointments (RoomId, Owner, Start, [End])" +
+                                   " OUTPUT INSERTED.[Id] VALUES  " +
+                                   " (@RoomId, @Owner, @Start, @End )";
 
                     var idResult = await conn.QuerySingleAsync<Guid>(sQuery,
                          new

@@ -31,6 +31,8 @@ namespace SoundCore.BlazorComponents.Features.Appointments.SchedulerForAppointme
         [Inject]
         public IAppointmentDataConverter _appointmentConverter { get; set; }
 
+
+
         public string[] Resources { get; set; } = { "Rooms" };
 
         protected  async override Task OnInitializedAsync()
@@ -45,12 +47,20 @@ namespace SoundCore.BlazorComponents.Features.Appointments.SchedulerForAppointme
 
         public async Task OnActionStarted(ActionEventArgs<AppointmentData> args)
         {
-            args.Cancel = true;
+           // args.Cancel = true;
             switch (args.ActionType)
             {
                 case ActionType.EventChange:
                     break;
                 case ActionType.EventCreate:
+                    if (args.AddedRecords[0].Id == Guid.Empty)
+                    {
+                        return;
+                    }
+                    var appointmentData = _appointmentConverter.ConvertAppointmentDataToAppointment(args.AddedRecords[0]);                    
+                    var addedAppointment = await _appointmentService.AddAsync(appointmentData);
+                    var addedAppointmentData = _appointmentConverter.ConvertAppointmentToAppointmentData(addedAppointment);
+                    await Scheduler.AddEvent(addedAppointmentData);
                     break;
                 case ActionType.EventRemove:
                     break;                      

@@ -1,8 +1,11 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SoundCore.Application.Features.Appointments.Commands.AddAppointment;
 using SoundCore.Application.Features.Appointments.Queries.GetAppointmentList;
+using SoundCore.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +19,13 @@ namespace SoundCore.Server.Controllers.api
     {
         private readonly IMediator _mediator;
         private readonly ILogger<AppointmentController> _logger;
+        private readonly IMapper _mapper;
 
-        public AppointmentController(IMediator mediator, ILogger<AppointmentController> logger)
+        public AppointmentController(IMediator mediator, ILogger<AppointmentController> logger, IMapper map)
         {
             this._mediator = mediator;
             this._logger = logger;
+            this._mapper = map;
         }
 
         [HttpGet("all", Name = "GetAllAppointments")]
@@ -40,5 +45,18 @@ namespace SoundCore.Server.Controllers.api
             }
 
         }
+
+
+
+        [HttpPost("create",Name = "AddAppointment")]
+        public async Task<ActionResult<Appointment>> Create([FromBody] Appointment appointment)
+        {
+
+            var createEventCommand = _mapper.Map<AddAppointmentCommand>(appointment);
+            var id = await _mediator.Send(createEventCommand);
+            appointment.Id = id;
+            return Ok(appointment);
+        }
+
     }
 }
