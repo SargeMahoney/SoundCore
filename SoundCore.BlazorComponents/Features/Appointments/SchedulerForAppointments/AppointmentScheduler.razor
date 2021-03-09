@@ -3,7 +3,7 @@
 
 
 
-<SfSchedule TValue="AppointmentData" Height="800px" @bind-SelectedDate="@CurrentDate" EnableAutoRowHeight="true" StartHour="14:00" EndHour="24:00">     
+<SfSchedule @ref="Scheduler" TValue="AppointmentData" Height="800px" @bind-SelectedDate="@CurrentDate" EnableAutoRowHeight="true" StartHour="14:00" EndHour="24:00">     
     <ScheduleViews>
         <ScheduleView Option="View.TimelineDay"></ScheduleView>
         <ScheduleView Option="View.TimelineWeek"></ScheduleView>
@@ -14,16 +14,22 @@
     </ScheduleViews>
 
     <ScheduleQuickInfoTemplates>
+   
         <HeaderTemplate>
             header
         </HeaderTemplate>
         <ContentTemplate>
-            conntent
+            @{
+                var appointment = context as AppointmentData;
+
+            }
+            <AppointmentDialog @bind-Appointment="appointment" Rooms="RoomsData"></AppointmentDialog>
         </ContentTemplate>
         <FooterTemplate>
             footer
         </FooterTemplate>
     </ScheduleQuickInfoTemplates>
+    
     <ScheduleGroup EnableCompactView="false" Resources="@Resources"></ScheduleGroup>
     <ScheduleResources>
         <ScheduleResource TItem="Room" TValue="Guid[]" DataSource="@RoomsData" Field="RoomId" Name="Rooms" TextField="Name" IdField="Id" AllowMultiple="true"></ScheduleResource>
@@ -42,38 +48,14 @@
             }
         </ResourceHeaderTemplate>
         <EditorTemplate>
-            <input type="hidden" name="Id" class="e-field" />
-            <table class="custom-event-editor" width="100%" cellpadding="5">
-                <tbody>
-                    <tr>
-                        <td class="e-textlabel">Summary</td>
-                        <td colspan="4">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="e-textlabel">Status</td>
-                        <td class="dropdown" colspan="4">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="e-textlabel">From</td>
-                        <td colspan="4">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="e-textlabel">To</td>
-                        <td colspan="4">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="e-textlabel">Reason</td>
-                        <td colspan="4">
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            @{ 
+                var appointment = context as AppointmentData;
+              
+            }
+           <AppointmentDialog @bind-Appointment="appointment" Rooms="RoomsData"  ></AppointmentDialog>
         </EditorTemplate>
     </ScheduleTemplates>
+    <ScheduleEvents TValue="AppointmentData" OnActionBegin="OnActionStarted" OnPopupOpen="OnPopupOpen"></ScheduleEvents>
     <ScheduleEventSettings TValue="AppointmentData" DataSource="@AppointmentData"></ScheduleEventSettings>
 </SfSchedule>
 

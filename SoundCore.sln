@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoundCore.Persistence", "So
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoundCore.Server", "SoundCore.Server\SoundCore.Server.csproj", "{46E2AE75-618C-41D9-83EB-6A2709CF0731}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoundCore.BlazorComponents", "SoundCore.BlazorComponents\SoundCore.BlazorComponents.csproj", "{212AD56D-3275-4BBF-A2DF-D2D3AD7A1D76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoundCore.BlazorComponents", "SoundCore.BlazorComponents\SoundCore.BlazorComponents.csproj", "{212AD56D-3275-4BBF-A2DF-D2D3AD7A1D76}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
