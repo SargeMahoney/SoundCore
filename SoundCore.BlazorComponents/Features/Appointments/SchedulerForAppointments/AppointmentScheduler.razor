@@ -3,6 +3,100 @@
 
 
 
-<SfSchedule TValue="AppointmentData" Height="800px" @bind-SelectedDate="@CurrentDate" >
-    <ScheduleEventSettings DataSource="@Data"></ScheduleEventSettings>
-   </SfSchedule>
+<SfSchedule TValue="AppointmentData" Height="800px" @bind-SelectedDate="@CurrentDate" EnableAutoRowHeight="true">
+    <ScheduleViews>
+        <ScheduleView Option="View.TimelineDay"></ScheduleView>
+        <ScheduleView Option="View.TimelineWeek"></ScheduleView>
+        <ScheduleView Option="View.TimelineMonth"></ScheduleView>
+        <ScheduleView Option="View.MonthAgenda"></ScheduleView>
+        <ScheduleView Option="View.Agenda"></ScheduleView>
+        <ScheduleView Option="View.Week"></ScheduleView>
+    </ScheduleViews>
+    <ScheduleGroup EnableCompactView="false" Resources="@Resources"></ScheduleGroup>
+    <ScheduleResources>
+        <ScheduleResource TItem="Room" TValue="Guid[]" DataSource="@RoomsData" Field="RoomId" Name="Rooms" TextField="Name" IdField="Id" AllowMultiple="true"></ScheduleResource>
+    </ScheduleResources>
+    <ScheduleTemplates>
+        <ResourceHeaderTemplate>
+            @{
+                var roomData = (context as TemplateContext).ResourceData as Room;
+                <div class='template-wrap'>                   
+                                <div class="room-details">
+                                    <div class="room-name">@(roomData.Name)</div>
+                                    <div class="room-descr">@(roomData.Description)</div>
+                                </div>
+                </div>
+            }
+        </ResourceHeaderTemplate>
+    </ScheduleTemplates>
+    <ScheduleEventSettings DataSource="@AppointmentData"></ScheduleEventSettings>
+</SfSchedule>
+
+<style>
+    .e-schedule .template-wrap {
+        display: flex;
+        text-align: left;
+    }
+
+    .e-schedule .e-agenda-view .template-wrap {
+        display: table;
+        width: inherit;
+        text-align: center;
+        padding-top: 10px;
+    }
+
+    .e-schedule:not(.e-device) .e-agenda-view .e-content-wrap table td:first-child {
+        width: 110px;
+    }
+
+
+    .e-schedule .e-vertical-view .e-resource-cells {
+        height: 76px;
+    }
+
+    .e-bigger .e-schedule .e-vertical-view .e-resource-cells {
+        height: 80px;
+    }
+
+    .e-schedule .template-wrap .room-details {
+        padding-left: 15px;
+    }
+
+    .e-schedule .e-agenda-view .template-wrap .room-details {
+        padding: 0;
+    }
+
+    .e-schedule .template-wrap .room-details .room-name {
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    .e-schedule.e-device .template-wrap .room-details .room-name {
+        font-size: inherit;
+        font-weight: inherit;
+    }
+
+    .e-schedule .e-agenda-view .template-wrap .room-descr,
+    .e-schedule .e-agenda-view .template-wrap  {
+        display: none;
+    }
+
+    .e-schedule.e-device .template-wrap .room-descr,
+    .e-schedule.e-device .template-wrap  {
+        display: none;
+    }
+
+    .schedule-demo-heading {
+        font-size: 16px;
+        padding-bottom: 15px;
+        font-weight: 500;
+    }
+
+    @@media (max-width: 550px) {
+        .schedule-demo-heading {
+            font-size: 14px;
+        }
+    }
+
+  
+</style>

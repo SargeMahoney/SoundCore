@@ -14,20 +14,32 @@ namespace SoundCore.BlazorComponents.Features.Appointments.SchedulerForAppointme
     {
         public DateTime CurrentDate { get; set; } = DateTime.Now;
 
-        public IEnumerable<AppointmentData> Data { get; set; }
+        public IEnumerable<AppointmentData> AppointmentData { get; set; }
+
+        public IEnumerable<Room> RoomsData { get; set; }
 
         [Inject]
         public IAppointmentDataService _appointmentService { get; set; }
 
 
         [Inject]
+        public IRoomsDataService _roomsDataService { get; set; }
+
+
+        [Inject]
         public IAppointmentDataConverter _appointmentConverter { get; set; }
+
+        public string[] Resources { get; set; } = { "Rooms" };
 
         protected  async override Task OnInitializedAsync()
         {
             var data = await _appointmentService.ListAllAsync();
-            Data = _appointmentConverter.ConvertAppointmentListToAppointmentData(data.ToList());
-            
+            AppointmentData = _appointmentConverter.ConvertAppointmentListToAppointmentData(data.ToList());
+
+            var rooms = await _roomsDataService.ListAllAsync();
+            RoomsData = rooms;
+
+
 
         }
 
