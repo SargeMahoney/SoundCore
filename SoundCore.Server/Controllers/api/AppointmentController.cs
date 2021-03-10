@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SoundCore.Application.Features.Appointments.Commands.AddAppointment;
+using SoundCore.Application.Features.Appointments.Commands.UpdateAppointment;
 using SoundCore.Application.Features.Appointments.Queries.GetAppointmentList;
 using SoundCore.Domain.Entities;
 using System;
@@ -49,13 +50,23 @@ namespace SoundCore.Server.Controllers.api
 
 
         [HttpPost("create",Name = "AddAppointment")]
-        public async Task<ActionResult<Appointment>> Create([FromBody] Appointment appointment)
+        public async Task<ActionResult<Appointment>> AddAppointment([FromBody] Appointment appointment)
         {
 
             var createEventCommand = _mapper.Map<AddAppointmentCommand>(appointment);
             var id = await _mediator.Send(createEventCommand);
             appointment.Id = id;
-            return Ok(appointment);
+            return Created("appointment", appointment);
+        }
+
+
+        [HttpPost("update", Name = "UpdateAppointment")]
+        public async Task<ActionResult<Appointment>> UpdateAppointment([FromBody] Appointment appointment)
+        {
+
+            var UpdateAppointment = _mapper.Map<UpdateAppointmentCommand>(appointment);
+            var modifiedAppointment = await _mediator.Send(UpdateAppointment);           
+            return Ok(modifiedAppointment);
         }
 
     }

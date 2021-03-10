@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -35,7 +36,8 @@ namespace SoundCore.Server.Services.Appointments
 
                 if (response.IsSuccessStatusCode)
                 {
-                    return await JsonSerializer.DeserializeAsync<Appointment>(await response.Content.ReadAsStreamAsync());
+                   var result = await  response.Content.ReadFromJsonAsync<Appointment>();
+                    return result;
                 }
 
                 return null;
@@ -64,9 +66,29 @@ namespace SoundCore.Server.Services.Appointments
                 (await _httpClient.GetStreamAsync($"api/appointment/all"), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
         }
 
-        public Task<BaseResult> UpdateAsync(Appointment entity)
+        public async Task<BaseResult> UpdateAsync(Appointment entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+                var entityJson =
+                new StringContent(JsonSerializer.Serialize(entity), Encoding.UTF8, "application/json");
+
+                var response = await _httpClient.PostAsync($"api/appointment/update", entityJson);
+
+                if (response.IsSuccessStatusCode)
+                {     
+                    return await JsonSerializer.DeserializeAsync<BaseResult>(await response.Content.ReadAsStreamAsync());
+                }
+
+                return null;
+
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception();
+            }
         }
 
        

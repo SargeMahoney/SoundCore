@@ -77,9 +77,34 @@ namespace SoundCore.Persistence.SqlServer.Repositories
             }
         }
 
-        public Task<BaseResult> UpdateAsync(Appointment entity)
+        public async Task<BaseResult> UpdateAsync(Appointment entity)
         {
-            throw new NotImplementedException();
+            using (var conn = Connection)
+            {
+                try
+                {
+                    var sQuery = @"UPDATE  d_Appointments SET RoomId = @RoomId, Owner = @Owner, Start = @Start, [End] = @End "  +
+                                   "WHERE Id = @Id ";
+                 
+
+                    var idResult = await conn.ExecuteAsync(sQuery,
+                         new
+                         {
+                             RoomId = entity.RoomId,
+                             Owner = entity.Owner,
+                             Start = entity.Start,
+                             End = entity.End,
+                             Id =entity.Id
+                         });
+                   
+                    return new BaseResult(message: string.Empty,success: true);
+                }
+                catch (Exception ex)
+                {
+                    this._logger.LogError(ex.ToString());
+                    throw;
+                }
+            }
         }
     }
 }
