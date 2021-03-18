@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SoundCore.Application.Features.Appointments.Commands.AddAppointment;
+using SoundCore.Application.Features.Appointments.Commands.DeleteAppointment;
 using SoundCore.Application.Features.Appointments.Commands.UpdateAppointment;
 using SoundCore.Application.Features.Appointments.Queries.GetAppointmentList;
 using SoundCore.Domain.Entities;
@@ -58,6 +59,18 @@ namespace SoundCore.Server.Controllers.api
             appointment.Id = id;
             return Created("appointment", appointment);
         }
+
+        [HttpDelete("{id}", Name = "DeleteAppointment")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult> DeleteAppointment(Guid id)
+        {
+            var deleteAppointmentCommand = new DeleteAppointmentCommand() { AppointmentId = id };
+            await _mediator.Send(deleteAppointmentCommand);
+            return NoContent();
+        }
+
 
 
         [HttpPost("update", Name = "UpdateAppointment")]

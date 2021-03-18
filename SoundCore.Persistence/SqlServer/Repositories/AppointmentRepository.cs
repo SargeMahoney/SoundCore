@@ -7,6 +7,7 @@ using SoundCore.Domain.Entities;
 using SoundCore.Persistence.SqlServer._base;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SoundCore.Persistence.SqlServer.Repositories
@@ -46,14 +47,51 @@ namespace SoundCore.Persistence.SqlServer.Repositories
             }
         }
 
-        public Task<BaseResult> DeleteAsync(Appointment entity)
+        public async Task<BaseResult> DeleteAsync(Appointment entity)
         {
-            throw new NotImplementedException();
+            using (var conn = Connection)
+            {
+                try
+                {
+                    var sQuery = @"DELETE FROM d_Appointments WHERE Id = @Id";
+
+                    var idResult = await conn.QueryAsync(sQuery,
+                         new
+                         {
+                             Id = entity.Id
+                         });
+                    return new BaseResult();
+                }
+                catch (Exception ex)
+                {
+                    this._logger.LogError(ex.ToString());
+                    throw;
+                }
+            }
         }
 
-        public Task<Appointment> GetByIdAsync(Guid id)
+        public async Task<Appointment> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            using (var conn = Connection)
+            {
+                try
+                {
+                    var sQuery = "SELECT * FROM d_Appointments where Id = @id";
+
+                    var result = await conn.QuerySingleAsync<Appointment>(sQuery, new
+                    {
+                       Id = id
+                    });
+
+                    return result;
+
+                }
+                catch (Exception ex)
+                {
+                    this._logger.LogError(ex.ToString());
+                    throw;
+                }
+            }
         }
 
         public async Task<IEnumerable<Appointment>> ListAllAsync()

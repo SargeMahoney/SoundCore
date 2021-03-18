@@ -3,7 +3,7 @@
 
 
 
-<SfSchedule @ref="Scheduler" TValue="AppointmentData" Height="800px" @bind-SelectedDate="@CurrentDate" EnableAutoRowHeight="true" StartHour="14:00" EndHour="24:00">     
+<SfSchedule @ref="Scheduler" TValue="AppointmentData" Height="800px" AllowResizing="false"  CssClass="custom-class"  @bind-SelectedDate="@CurrentDate"  EnableAutoRowHeight="true" StartHour="14:00" EndHour="24:00">     
     <ScheduleViews>
         <ScheduleView Option="View.TimelineDay"></ScheduleView>
         <ScheduleView Option="View.TimelineWeek"></ScheduleView>
@@ -32,7 +32,7 @@
     
     <ScheduleGroup EnableCompactView="false" Resources="@Resources"></ScheduleGroup>
     <ScheduleResources>
-        <ScheduleResource TItem="Room" TValue="Guid[]" DataSource="@RoomsData" Field="RoomId" Name="Rooms" TextField="Name" IdField="Id" AllowMultiple="true"></ScheduleResource>
+        <ScheduleResource TItem="Room" TValue="Guid[]" DataSource="@RoomsData"  Field="RoomId" Name="Rooms" TextField="Name" IdField="Id" AllowMultiple="true"></ScheduleResource>
     </ScheduleResources>
     <ScheduleTimeScale Interval="60" SlotCount="1"></ScheduleTimeScale>
     <ScheduleTemplates>
@@ -55,11 +55,14 @@
            <AppointmentDialog @bind-Appointment="appointment" Rooms="RoomsData"  ></AppointmentDialog>
         </EditorTemplate>
     </ScheduleTemplates>
-    <ScheduleEvents TValue="AppointmentData" OnActionBegin="OnActionStarted" OnPopupOpen="OnPopupOpen"></ScheduleEvents>
-    <ScheduleEventSettings TValue="AppointmentData" DataSource="@AppointmentData"></ScheduleEventSettings>
+    <ScheduleEvents OnCellClick="SingleClickCell"  TValue="AppointmentData" OnActionBegin="OnActionStarted" OnPopupOpen="OnPopupOpen"></ScheduleEvents>
+    <ScheduleEventSettings TValue="AppointmentData" DataSource="@AppointmentData" ></ScheduleEventSettings>
 </SfSchedule>
 
 <style>
+
+
+
     .e-schedule .template-wrap {
         display: flex;
         text-align: left;
@@ -125,5 +128,12 @@
         }
     }
 
-  
+
+    .custom-class.e-schedule .e-vertical-view .e-all-day-appointment-wrapper .e-appointment,
+    .custom-class.e-schedule .e-vertical-view .e-day-wrapper .e-appointment,
+    .custom-class.e-schedule .e-month-view .e-appointment,
+    .custom-class.e-schedule .e-week-view .e-appointment {
+        width: 100% !important;
+    }
+
 </style>

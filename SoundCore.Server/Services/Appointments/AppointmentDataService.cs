@@ -50,9 +50,32 @@ namespace SoundCore.Server.Services.Appointments
             }
         }
 
-        public Task<BaseResult> DeleteAsync(Appointment entity)
+        public async Task<BaseResult> DeleteAsync(Appointment entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+           
+
+                var response = await _httpClient.DeleteAsync($"api/appointment/{entity.Id.ToString()}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return new BaseResult();
+                }
+                else
+                {
+                    return new BaseResult(message: "errore",success:false);
+                }
+
+         
+
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception();
+            }
         }
 
         public Task<Appointment> GetByIdAsync(Guid id)
