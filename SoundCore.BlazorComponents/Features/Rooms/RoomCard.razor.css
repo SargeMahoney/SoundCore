@@ -1,5 +1,15 @@
-﻿.card .card-title{
-    background-color:lightgray!important;
+﻿.card {
+    width: 100%;
+    min-height: 200px !important;
+}
+
+
+.card .card-title{
+    background-color: whitesmoke!important;
     font-weight:bold!important;
+    text-align:justify;
+    padding-left:3px!important;
+    padding-top:3px!important;
+    height:50px!important;
 
 }

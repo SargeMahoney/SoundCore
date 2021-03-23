@@ -31,24 +31,8 @@
         padding-bottom: 1rem;
     }
 
-    .nav-item ::deep a {
-        color: #d7d7d7;
-        border-radius: 4px;
-        height: 3rem;
-        display: flex;
-        align-items: center;
-        line-height: 3rem;
-    }
 
-.nav-item ::deep a.active {
-    background-color: rgba(255,255,255,0.25);
-    color: white;
-}
 
-.nav-item ::deep a:hover {
-    background-color: rgba(255,255,255,0.1);
-    color: white;
-}
 
 @media (min-width: 641px) {
     .navbar-toggler {
@@ -60,3 +44,20 @@
         display: block;
     }
 }
+
+.first-element{
+    margin-top:50px!important;
+}
+
+::deep .e-custom {
+    width: 100% !important;
+    border: 0px !important;
+    border: solid 1px transparent !important;
+    background-color: transparent !important;
+    color: black !important;
+}
+
+   ::deep .e-custom:hover {
+       border:solid 1px darkblue !important;
+       color:darkblue!important;
+    }
