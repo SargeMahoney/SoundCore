@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SoundCore.Application.Features.Rooms.Commands.CreateRoom;
+using SoundCore.Application.Features.Rooms.Commands.UpdateRoom;
 using SoundCore.Application.Features.Rooms.Queries.GetRoomsList;
 using SoundCore.Domain.Entities;
 using System;
@@ -48,13 +49,22 @@ namespace SoundCore.Server.Controllers.api
         }
 
         [HttpPost("create", Name = "AddRoom")]
-        public async Task<ActionResult<Appointment>> AddRoom([FromBody] Room room)
+        public async Task<ActionResult<Room>> AddRoom([FromBody] Room room)
         {
 
             var createRoomCommand = _mapper.Map<CreateRoomCommand>(room);
             var response = await _mediator.Send(createRoomCommand);
             room.Id = response.Room.Id;
             return Created("room", room);
+        }
+
+        [HttpPost("update", Name = "UpdateRoom")]
+        public async Task<ActionResult<Room>> UpdateRoom([FromBody] Room room)
+        {
+
+            var updateRoomCommand = _mapper.Map<UpdateRoomCommand>(room);
+            var response = await _mediator.Send(updateRoomCommand);         
+            return Created("room", response);
         }
 
     }

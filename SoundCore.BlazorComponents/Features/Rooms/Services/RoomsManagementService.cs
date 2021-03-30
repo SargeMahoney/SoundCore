@@ -50,9 +50,19 @@ namespace SoundCore.BlazorComponents.Features.Rooms.Services
             return await this._roomsDataService.ListAllAsync();
         }
 
-        public Task<DataResult<Room>> UpdateRoom(Room updatedRoom, Guid roomId)
+        public async Task<DataResult<Room>> UpdateRoom(Room updatedRoom, Guid roomId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var result = await _roomsDataService.UpdateAsync(updatedRoom);
+
+                return new DataResult<Room>(data: updatedRoom);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

@@ -63,9 +63,29 @@ namespace SoundCore.Server.Services.Rooms
                 (await _httpClient.GetStreamAsync($"api/rooms/all"), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
         }
 
-        public Task<BaseResult> UpdateAsync(Room entity)
+        public async Task<BaseResult> UpdateAsync(Room entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+                var entityJson =
+                new StringContent(JsonSerializer.Serialize(entity), Encoding.UTF8, "application/json");
+
+                var response = await _httpClient.PostAsync($"api/rooms/update", entityJson);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return await JsonSerializer.DeserializeAsync<BaseResult>(await response.Content.ReadAsStreamAsync());
+                }
+
+                return null;
+
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception();
+            }
         }
     }
 }

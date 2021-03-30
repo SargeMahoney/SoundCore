@@ -34,7 +34,7 @@ namespace SoundCore.Persistence.SqlServer.Repositories
                          {
                              Name = entity.Name,
                              Description = entity.Description,
-                             State = RoomState.Active,
+                             State = entity.State,
                              CreationDate = DateTime.Now                         
                          });
                     entity.Id = idResult;                  
@@ -108,7 +108,8 @@ namespace SoundCore.Persistence.SqlServer.Repositories
                          {
                              Name = entity.Name,
                              Description = entity.Description,
-                             State = entity.State                       
+                             State = entity.State    ,
+                             IdDaAggiornare = entity.Id
                          });
                     return new BaseResult();
                 }
