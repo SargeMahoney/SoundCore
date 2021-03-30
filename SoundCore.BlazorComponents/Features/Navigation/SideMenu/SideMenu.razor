@@ -9,17 +9,17 @@
         <ul class="nav flex-column mt-4 ">
             <li class="nav-item px-3 ">
                 <NavLink class="@ButtonClass(_sideMenuService.HomeButton)" href="" Match="NavLinkMatch.All" @onclick="() => _sideMenuService.HomeButtonClicked()">
-                    <span class="oi oi-home" aria-hidden="true"></span> Home
+                    <span class="fas fa-home mr-2"  aria-hidden="true"></span> Home
                 </NavLink>
             </li>
             <li class="nav-item px-3">
                 <NavLink class="@ButtonClass(_sideMenuService.SchedulerButton)" href="\Scheduler" Match="NavLinkMatch.All" @onclick="() => _sideMenuService.ScheduleButtonClicked()">
-                    <span class="oi oi-calendar" aria-hidden="true"></span> Scheduler
+                    <span class="fas fa-calendar-alt mr-2" aria-hidden="true"></span> Scheduler
                 </NavLink>
             </li>
             <li class="nav-item px-3">
                 <NavLink class="@ButtonClass(_sideMenuService.RoomsButton)" href="\Rooms" Match="NavLinkMatch.All"  @onclick="() => _sideMenuService.RoomsButtonClicked()">
-                    <span class="fa fa-shopping-cart" aria-hidden="true"></span> Rooms
+                    <span class="fas fa-shopping-cart mr-2" aria-hidden="true"></span> Rooms
                 </NavLink>
             </li>
         </ul>

@@ -11,7 +11,7 @@
     font-size: 1.1rem;
 }
 
-.oi {
+.fas {
     width: 2rem;
     font-size: 1.1rem;
     vertical-align: text-top;
@@ -46,7 +46,7 @@
 }
 
 .first-element {
-    margin-top: 50px !important;
+    margin-top: 70px !important;
 }
 
 ::deep .e-custom {
@@ -58,10 +58,14 @@
 }
 
     ::deep .e-custom:hover {
-        border: solid 1px darkblue !important;
-        color: darkblue !important;
+        border: solid 1px #2f4fb2 !important;
+        color: #2f4fb2 !important;
+        -webkit-box-shadow: 3px 4px 8px -1px rgba(49,31,148,0.5);
+        box-shadow: 3px 4px 8px -1px rgba(49,31,148,0.5);
     }
 
-    ::deep .selectedButton {
-        background-color:blue!important;
-    }
+::deep .selectedButton {
+    background-color: whitesmoke !important;
+    -webkit-box-shadow: 3px 4px 8px 3px #CFCFCF;
+    box-shadow: 3px 4px 8px 3px #CFCFCF;
+}
