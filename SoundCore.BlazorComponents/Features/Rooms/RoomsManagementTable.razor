@@ -1,0 +1,19 @@
+﻿@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.Inputs
+@using SoundCore.Domain.Entities
+@using SoundCore.Domain.Enum
+@using Syncfusion.Blazor.DropDowns
+
+
+<SfGrid AllowPaging="true" Toolbar="@(new List<string>() { "Add", "Edit", "Delete","Search" })" TValue="Room" DataSource="RoomsView">
+    <GridEditSettings AllowAdding="true" AllowEditing="true" AllowDeleting="true" Mode="EditMode.Dialog">
+        <Template>
+            @{
+                var room = (context as Room);
+               <RoomsManagementDialogModel @bind-SelectedRoom="room"></RoomsManagementDialogModel>
+            }
+        </Template>
+    </GridEditSettings>
+</SfGrid>
+
+

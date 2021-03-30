@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SoundCore.BlazorComponents.Features.Appointments.DataConverter;
 using SoundCore.BlazorComponents.Features.Navigation.SideMenu.Services;
+using SoundCore.BlazorComponents.Features.Rooms.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace SoundCore.BlazorComponents
         {
             services.AddTransient<IAppointmentDataConverter, AppointmentDataConverter>();
 
-
+            services.AddTransient<IRoomsManagementService, RoomsManagementService>();
             services.AddScoped<ISideMenuService, SideMenuService>();
             return services;
         }

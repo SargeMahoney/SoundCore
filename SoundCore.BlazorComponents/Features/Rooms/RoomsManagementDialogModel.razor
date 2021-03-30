@@ -1,0 +1,63 @@
+﻿@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.Inputs
+@using SoundCore.Domain.Entities
+@using SoundCore.Domain.Enum
+@using Syncfusion.Blazor.DropDowns
+
+<div class="w-100">
+    <div class="row">
+        <div class="form-group col-6">
+            <label>Room ID</label>
+            <SfTextBox CssClass="form-control" ID="roomID" Value="@(SelectedRoom.Id.ToString())" Enabled="false"></SfTextBox>
+        </div>
+        <div class="form-group col-6">
+            <label>Name</label>
+            <SfTextBox CssClass="form-control" ID="roomName" @bind-Value="@(SelectedRoom.Name)"></SfTextBox>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-6">
+            <label>Description</label>
+            <SfTextBox CssClass="form-control" ID="roomDescription" @bind-Value="@(SelectedRoom.Description)"></SfTextBox>
+        </div>
+        <div class="form-group col-6">
+            <label>State</label>
+            <SfDropDownList CssClass="form-control" ID="roomState" @bind-Value="@(SelectedRoom.State)" TItem="string" TValue="RoomState" DataSource="@enumRoomState">
+            </SfDropDownList>
+        </div>
+    </div>
+</div>
+
+
+@code {
+
+    public string[] enumRoomState = Enum.GetNames(typeof(RoomState));
+
+
+
+
+
+
+    [Parameter]
+    public Room SelectedRoom
+    {
+        get => _room;
+        set
+        {
+            if (_room == value) return;
+            _room = value;
+            SelectedRoomChanged.InvokeAsync(value);
+        }
+    }
+    private Room _room;
+    [Parameter]
+    public EventCallback<Room> SelectedRoomChanged { get; set; }
+
+
+
+
+
+
+    
+
+}
