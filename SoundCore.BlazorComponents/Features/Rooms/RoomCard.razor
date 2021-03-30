@@ -7,6 +7,8 @@
             <p class="card-text">@Room.Description</p>
         </div>
     </div>
+    <button @onclick="Prova">PROVA</button>
+  <Prova></Prova>
 }
 
 
@@ -15,4 +17,19 @@
 
     [Parameter]
     public Room Room { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+
+    public void Prova()
+    {
+        this.StateHasChanged();
+    }
 }

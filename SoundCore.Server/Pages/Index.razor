@@ -1,5 +1,7 @@
 ﻿@inject SoundCore.Application.Contracts.DataServices.IRoomsDataService _roomService
 @inject SoundCore.Application.Contracts.DataServices.IAppointmentDataService _appointmentService
+@inject SoundCore.BlazorComponents.Features.Navigation.SideMenu.Services.ISideMenuService _sideMenuService;
+
 @using Domain.Entities
 
 @page "/"
@@ -18,27 +20,21 @@
 
 
 
-@if (Appointments != null)
-{
-    @foreach (var item2 in Appointments)
-    {
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">@item2.Id</h5>
-                <p class="card-text">@item2.Room.Name</p>
-                <p class="card-text">@item2.Start.ToShortDateString() - @item2.Start.ToShortTimeString()</p>
-                <p class="card-text">@item2.End.ToShortDateString() - @item2.End.ToShortTimeString()</p>
-            </div>
-        </div>
-    }
-
-}
 
 @code{
 
     IEnumerable<Room> Rooms { get; set; }
 
     IEnumerable<Appointment> Appointments { get; set; }
+
+
+    @code{
+        protected async override Task OnInitializedAsync()
+        {
+            await _sideMenuService.HomeButtonClicked();
+            //   return base.OnInitializedAsync();
+        }
+    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

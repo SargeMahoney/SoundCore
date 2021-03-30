@@ -1,0 +1,24 @@
+﻿@page "/"
+    @using SoundCore.Application.Features.Rooms.Queries.GetRoomsList;
+    @inject MediatR.IMediator _mediator;
+
+    <h1>Hello, world!</h1>
+
+    Welcome to your new app.
+
+   @foreach (var item in Rooms)
+   {
+       <p>@item.Description</p>
+   }
+
+
+    @code{
+
+        public List<RoomListVm> Rooms { get; set; }
+
+
+        protected async override Task OnInitializedAsync()
+        {
+            Rooms = await _mediator.Send(new GetRoomListQuery());
+        }
+    }

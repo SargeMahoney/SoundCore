@@ -2,16 +2,21 @@
 @using Syncfusion.Blazor.Buttons
 
 <SfSidebar Width="200px">
-    <ChildContent>
-        <ul class="nav flex-column">
-            <li class="nav-item px-3 first-element">
-                <div>   <SfButton CssClass="e-custom">Prova</SfButton></div>
-            </li>
-        </ul>
-        <ul class="nav flex-column">
-            <li class="nav-item px-3">
-                <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+    <ChildContent>    
+        <ul class="nav flex-column mt-4 ">
+            <li class="nav-item px-3 ">
+                <NavLink class="nav-link e-custom" href="" Match="NavLinkMatch.All">
                     <span class="oi oi-home" aria-hidden="true"></span> Home
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link e-custom" href="\Scheduler" Match="NavLinkMatch.All">
+                    <span class="oi oi-calendar" aria-hidden="true"></span> Scheduler
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="nav-link e-custom" href="\Rooms" Match="NavLinkMatch.All">
+                    <span class="fa fa-shopping-cart" aria-hidden="true"></span> Roomsw
                 </NavLink>
             </li>
         </ul>

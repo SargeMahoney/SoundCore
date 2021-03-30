@@ -1,0 +1,63 @@
+﻿@using Syncfusion.Blazor.Navigations
+@using Syncfusion.Blazor.Buttons
+@using SoundCore.BlazorComponents.Features.Navigation.SideMenu.Models
+@inject SoundCore.BlazorComponents.Features.Navigation.SideMenu.Services.ISideMenuService _sideMenuService;
+@implements IDisposable
+
+<SfSidebar Width="200px">
+    <ChildContent>
+        <ul class="nav flex-column mt-4 ">
+            <li class="nav-item px-3 ">
+                <NavLink class="@ButtonClass(_sideMenuService.HomeButton)" href="" Match="NavLinkMatch.All" @onclick="() => _sideMenuService.HomeButtonClicked()">
+                    <span class="oi oi-home" aria-hidden="true"></span> Home
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="@ButtonClass(_sideMenuService.SchedulerButton)" href="\Scheduler" Match="NavLinkMatch.All" @onclick="() => _sideMenuService.ScheduleButtonClicked()">
+                    <span class="oi oi-calendar" aria-hidden="true"></span> Scheduler
+                </NavLink>
+            </li>
+            <li class="nav-item px-3">
+                <NavLink class="@ButtonClass(_sideMenuService.RoomsButton)" href="\Rooms" Match="NavLinkMatch.All"  @onclick="() => _sideMenuService.RoomsButtonClicked()">
+                    <span class="fa fa-shopping-cart" aria-hidden="true"></span> Rooms
+                </NavLink>
+            </li>
+        </ul>
+    </ChildContent>
+</SfSidebar>
+
+
+<style>
+</style>
+
+@code {
+
+    private static string activeButton = "nav-link e-custom";
+    private static string selectedButton = "nav-link e-custom selectedButton";
+
+    public string ButtonClass(enumButtonState buttonState)
+    {
+        switch (buttonState)
+        {
+            case enumButtonState.Inactive:
+                return string.Empty;
+            case enumButtonState.Selected:
+                return selectedButton;
+            case enumButtonState.Active:
+            case enumButtonState.NotDefined:
+            default:
+                return activeButton;
+        }
+
+    }
+
+
+    void IDisposable.Dispose()
+    {
+        _sideMenuService.Dispose();
+    }
+
+    //hiromikikokaway
+}
+
+

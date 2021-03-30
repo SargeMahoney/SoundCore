@@ -1,4 +1,13 @@
 ﻿@page "/Scheduler"
-
+@inject SoundCore.BlazorComponents.Features.Navigation.SideMenu.Services.ISideMenuService _sideMenuService;
 
 <AppointmentScheduler></AppointmentScheduler>
+
+
+@code{
+    protected async override Task OnInitializedAsync()
+    {
+       await _sideMenuService.ScheduleButtonClicked();
+         //   return base.OnInitializedAsync();
+    }
+}
