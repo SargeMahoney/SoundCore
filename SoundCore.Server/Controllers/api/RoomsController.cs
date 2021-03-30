@@ -1,9 +1,12 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SoundCore.Application.Features.Rooms.Commands.CreateRoom;
 using SoundCore.Application.Features.Rooms.Queries.GetRoomsList;
+using SoundCore.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,11 +20,13 @@ namespace SoundCore.Server.Controllers.api
     {
         private readonly IMediator _mediator;
         private readonly ILogger<RoomsController> _logger;
+        private readonly IMapper _mapper;
 
-        public RoomsController(IMediator mediator, ILogger<RoomsController> logger)
+        public RoomsController(IMediator mediator, ILogger<RoomsController> logger, IMapper mapper)
         {
             this._mediator = mediator;
             this._logger = logger;
+            this._mapper = mapper;
         }
 
         [HttpGet("all", Name = "GetAllCategories")]
@@ -41,5 +46,16 @@ namespace SoundCore.Server.Controllers.api
             }
       
         }
+
+        [HttpPost("create", Name = "AddRoom")]
+        public async Task<ActionResult<Appointment>> AddRoom([FromBody] Room room)
+        {
+
+            var createRoomCommand = _mapper.Map<CreateRoomCommand>(room);
+            var response = await _mediator.Send(createRoomCommand);
+            room.Id = response.Room.Id;
+            return Created("room", room);
+        }
+
     }
 }

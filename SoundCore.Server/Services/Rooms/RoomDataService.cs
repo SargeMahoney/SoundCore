@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Json;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -21,7 +23,28 @@ namespace SoundCore.Server.Services.Rooms
         }
         public  async Task<Room> AddAsync(Room entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+                var entityJson =
+                new StringContent(JsonSerializer.Serialize(entity), Encoding.UTF8, "application/json");
+
+                var response = await _httpClient.PostAsync($"api/rooms/create", entityJson);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadFromJsonAsync<Room>();
+                    return result;
+                }
+
+                return null;
+
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception();
+            }
         }
 
         public Task<BaseResult> DeleteAsync(Room entity)

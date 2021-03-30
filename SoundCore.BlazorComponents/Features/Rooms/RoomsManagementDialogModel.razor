@@ -3,8 +3,11 @@
 @using SoundCore.Domain.Entities
 @using SoundCore.Domain.Enum
 @using Syncfusion.Blazor.DropDowns
+@using SoundCore.Application.Features.Rooms.Models
+
 
 <div class="w-100">
+
     <div class="row">
         <div class="form-group col-6">
             <label>Room ID</label>
@@ -13,6 +16,7 @@
         <div class="form-group col-6">
             <label>Name</label>
             <SfTextBox CssClass="form-control" ID="roomName" @bind-Value="@(SelectedRoom.Name)"></SfTextBox>
+            <ValidationMessage For="@(() => SelectedRoom.Name)"/>
         </div>
     </div>
     <div class="row">
@@ -24,6 +28,7 @@
             <label>State</label>
             <SfDropDownList CssClass="form-control" ID="roomState" @bind-Value="@(SelectedRoom.State)" TItem="string" TValue="RoomState" DataSource="@enumRoomState">
             </SfDropDownList>
+            <ValidationMessage For="@(() => SelectedRoom.State)" />
         </div>
     </div>
 </div>
@@ -39,7 +44,7 @@
 
 
     [Parameter]
-    public Room SelectedRoom
+    public RoomModel SelectedRoom
     {
         get => _room;
         set
@@ -49,15 +54,15 @@
             SelectedRoomChanged.InvokeAsync(value);
         }
     }
-    private Room _room;
+    private RoomModel _room;
     [Parameter]
-    public EventCallback<Room> SelectedRoomChanged { get; set; }
+    public EventCallback<RoomModel> SelectedRoomChanged { get; set; }
 
 
 
 
 
 
-    
+
 
 }

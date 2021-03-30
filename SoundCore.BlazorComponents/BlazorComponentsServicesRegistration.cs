@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
+using SoundCore.Application.Features.Rooms.Models;
 using SoundCore.BlazorComponents.Features.Appointments.DataConverter;
 using SoundCore.BlazorComponents.Features.Navigation.SideMenu.Services;
 using SoundCore.BlazorComponents.Features.Rooms.Services;
@@ -18,6 +20,7 @@ namespace SoundCore.BlazorComponents
 
             services.AddTransient<IRoomsManagementService, RoomsManagementService>();
             services.AddScoped<ISideMenuService, SideMenuService>();
+         
             return services;
         }
     }
