@@ -1,49 +1,71 @@
-﻿@inject SoundCore.Application.Contracts.DataServices.IRoomsDataService _roomService
-@inject SoundCore.Application.Contracts.DataServices.IAppointmentDataService _appointmentService
+﻿@using SoundCore.Application.Models.Searchs
+@using SoundCore.Domain.Entities
+@inject SoundCore.Application.Contracts.Infrastructure.ISearchService _searchService
 @inject SoundCore.BlazorComponents.Features.Navigation.SideMenu.Services.ISideMenuService _sideMenuService;
+@inject SoundCore.Application.Contracts.DataServices.IRoomsDataService _roomDataService;
+@inject SoundCore.Application.Contracts.DataServices.IAppointmentDataService _appointmentDataService;
 
-@using Domain.Entities
+
 
 @page "/"
 
 
 
+<textarea @bind="Searching" @bind:event="oninput" class="form-control" id="search"></textarea>
 
-@if (Rooms != null)
+<button type="button" class="btn btn-success" @onclick="SearchData">Search</button>
+
+@if (SearchResult.Count() > 0)
 {
-    @foreach (var item in Rooms)
+    @foreach (var item in SearchResult)
     {
-        <RoomCard Room="item"></RoomCard>
+
+        @switch (item.Type)
+        {
+            case nameof(Room):
+                <div class="row" style="background-color:gray">
+                    <p>@item.SearchableString - @item.Type</p>
+                </div>
+                break;
+            case nameof(Appointment):
+                <div class="row" style="background-color:lightblue">
+                    <p>@item.SearchableString - @item.Type</p>
+                </div>
+                break;
+            default:
+                break;
+        }
+
     }
-
 }
-
-
-
 
 @code{
 
-    IEnumerable<Room> Rooms { get; set; }
-
-    IEnumerable<Appointment> Appointments { get; set; }
-
+    public string Searching { get; set; } = string.Empty;
+    public IEnumerable<SearchResult> SearchResult { get; set; } = new List<SearchResult>();
 
     @code{
         protected async override Task OnInitializedAsync()
         {
+
             await _sideMenuService.HomeButtonClicked();
+
+            var loadRoom = await _roomDataService.ListAllAsync();
+            var loadAppointment = await _appointmentDataService.ListAllAsync();
             //   return base.OnInitializedAsync();
         }
     }
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            Rooms = await _roomService.ListAllAsync();
-            Appointments = await _appointmentService.ListAllAsync();
-            this.StateHasChanged();
-        }
 
+
+
+    protected async Task SearchData()
+    {
+        if (string.IsNullOrWhiteSpace(Searching))
+        {
+            return;
+        }
+        SearchResult = await _searchService.Search(Searching.Trim());
+        this.StateHasChanged();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Logging;
 using SoundCore.Application.Configurations.DatabaseSettings;
+using SoundCore.Application.Contracts.Infrastructure;
 using SoundCore.Application.Contracts.Persistence;
 using SoundCore.Application.Models.Results;
 using SoundCore.Domain.Entities;
@@ -15,8 +16,11 @@ namespace SoundCore.Persistence.SqlServer.Repositories
 {
     public class RoomsRepository : SqlDbBaseRepository, IRoomsRepository
     {
+
+
         public RoomsRepository(ILogger<SqlDbBaseRepository> logger, IDatabaseSetting dbConfig) : base(logger, dbConfig)
         {
+          
         }
 
         public async Task<Room> AddAsync(Room entity)
@@ -101,7 +105,9 @@ namespace SoundCore.Persistence.SqlServer.Repositories
                 {
                     var sQuery = "SELECT * FROM t_Rooms";
 
-                    return await conn.QueryAsync<Room>(sQuery);
+                    var result = await conn.QueryAsync<Room>(sQuery);
+                   
+                    return result;
 
                 }
                 catch (Exception ex)

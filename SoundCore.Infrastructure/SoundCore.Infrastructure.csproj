@@ -4,4 +4,17 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Lucene.Net" Version="4.8.0-beta00001" />
+    <PackageReference Include="Lucene.Net.Analysis.Common" Version="4.8.0-beta00001" />
+    <PackageReference Include="Lucene.Net.Queries" Version="4.8.0-beta00001" />
+    <PackageReference Include="Lucene.Net.QueryParser" Version="4.8.0-beta00001" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SoundCore.Application\SoundCore.Application.csproj" />
+  </ItemGroup>
+
 </Project>

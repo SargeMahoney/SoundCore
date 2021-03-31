@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SoundCore.Application.Contracts.DataServices;
+using SoundCore.Application.Contracts.Infrastructure;
 using SoundCore.Application.Features.Appointments.Commands.AddAppointment;
 using SoundCore.Application.Models.Results;
 using SoundCore.Domain.Entities;
@@ -18,11 +19,13 @@ namespace SoundCore.Server.Services.Appointments
     {
         private readonly HttpClient _httpClient;
         private readonly IMapper _mapper;
+        private readonly ISearchService _searchService;
 
-        public AppointmentDataService(HttpClient httpClient, IMapper mapper)
+        public AppointmentDataService(HttpClient httpClient, IMapper mapper, ISearchService searchService)
         {
             _httpClient = httpClient;
             this._mapper = mapper;
+            this._searchService = searchService;
         }
         public async Task<Appointment> AddAsync(Appointment entity)
         {
@@ -85,8 +88,11 @@ namespace SoundCore.Server.Services.Appointments
 
         public async Task<IEnumerable<Appointment>> ListAllAsync()
         {
-            return await JsonSerializer.DeserializeAsync<IEnumerable<Appointment>>
+            var result = await JsonSerializer.DeserializeAsync<IEnumerable<Appointment>>
                 (await _httpClient.GetStreamAsync($"api/appointment/all"), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
+            await _searchService.AddDocumentAppointmentList(result.ToList());
+            return result;
+
         }
 
         public async Task<BaseResult> UpdateAsync(Appointment entity)

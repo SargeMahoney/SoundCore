@@ -37,7 +37,11 @@ namespace SoundCore.BlazorComponents.Features.Rooms
 
         void IDisposable.Dispose()
         {
-            RoomsView.Clear();
+            if (RoomsView != null)
+            {
+                RoomsView.Clear();
+            }
+          
         }
 
 

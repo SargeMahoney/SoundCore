@@ -4,7 +4,7 @@
 @inject SoundCore.BlazorComponents.Features.Navigation.SideMenu.Services.ISideMenuService _sideMenuService;
 @implements IDisposable
 
-<SfSidebar Width="200px">
+<SfSidebar Width="200px" Type="SidebarType.Push" IsOpen="true" >
     <ChildContent>
         <ul class="nav flex-column mt-4 ">
             <li class="nav-item px-3 ">

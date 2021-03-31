@@ -12,5 +12,9 @@ namespace SoundCore.Domain.Entities
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
         public DateTime CreationDate { get; set; }
+        public string SearchableField
+        {
+            get { return $"{Owner} {Start.ToShortDateString()} {End.ToShortDateString()}"; }
+        }
     }
 }

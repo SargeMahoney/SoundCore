@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using SoundCore.Application;
 using SoundCore.Application.Contracts.DataServices;
 using SoundCore.BlazorComponents;
+using SoundCore.Infrastructure;
 using SoundCore.Persistence.SqlServer;
 using SoundCore.Server.Areas.Identity;
 using SoundCore.Server.Data;
@@ -57,6 +58,7 @@ namespace SoundCore.Server
               .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultUI().AddTokenProvider<DataProtectorTokenProvider<IdentityUser>>(TokenOptions.DefaultProvider); 
 
             services.AddApplicationServices();
+            services.AddInfrastructureServicesRegistration();
             services.AddSqlServerPersistenceServicesRegistration(Configuration);
             services.AddBlazorComponentsServices();
             services.AddSyncfusionBlazor();
