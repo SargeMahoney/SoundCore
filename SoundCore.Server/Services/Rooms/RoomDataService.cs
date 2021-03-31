@@ -29,6 +29,7 @@ namespace SoundCore.Server.Services.Rooms
                 var entityJson =
                 new StringContent(JsonSerializer.Serialize(entity), Encoding.UTF8, "application/json");
 
+            
                 var response = await _httpClient.PostAsync($"api/rooms/create", entityJson);
 
                 if (response.IsSuccessStatusCode)
@@ -47,9 +48,26 @@ namespace SoundCore.Server.Services.Rooms
             }
         }
 
-        public Task<BaseResult> DeleteAsync(Room entity)
+        public async Task<BaseResult> DeleteAsync(Room entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var response = await _httpClient.DeleteAsync($"api/rooms/{entity.Id.ToString()}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return new BaseResult();
+                }
+                else
+                {
+                    return new BaseResult(message: "errore", success: false);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception();
+            }
+           
         }
 
         public Task<Room> GetByIdAsync(Guid id)

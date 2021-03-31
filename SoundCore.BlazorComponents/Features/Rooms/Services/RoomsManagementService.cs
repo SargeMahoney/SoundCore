@@ -64,5 +64,20 @@ namespace SoundCore.BlazorComponents.Features.Rooms.Services
                 throw;
             }
         }
+
+        public async Task<DataResult<Room>> DeleteRoom(Room roomToDelete)
+        {
+            try
+            {
+                var result = await _roomsDataService.DeleteAsync(roomToDelete);
+
+                return new DataResult<Room>(data: roomToDelete);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

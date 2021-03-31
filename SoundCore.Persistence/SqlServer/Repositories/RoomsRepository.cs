@@ -48,9 +48,27 @@ namespace SoundCore.Persistence.SqlServer.Repositories
             }
         }
 
-        public Task<BaseResult> DeleteAsync(Room entity)
+        public async Task<BaseResult> DeleteAsync(Room entity)
         {
-            throw new NotImplementedException();
+            using (var conn = Connection)
+            {
+                try
+                {
+                    var sQuery = @"DELETE FROM t_Rooms WHERE Id = @Id";
+
+                    var idResult = await conn.QueryAsync(sQuery,
+                         new
+                         {
+                             Id = entity.Id
+                         });
+                    return new BaseResult();
+                }
+                catch (Exception ex)
+                {
+                    this._logger.LogError(ex.ToString());
+                    throw;
+                }
+            }
         }
 
         public async Task<Room> GetByIdAsync(Guid id)

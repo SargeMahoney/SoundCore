@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SoundCore.Application.Features.Rooms.Commands.CreateRoom;
+using SoundCore.Application.Features.Rooms.Commands.DeleteRoom;
 using SoundCore.Application.Features.Rooms.Commands.UpdateRoom;
 using SoundCore.Application.Features.Rooms.Queries.GetRoomsList;
 using SoundCore.Domain.Entities;
@@ -67,5 +68,15 @@ namespace SoundCore.Server.Controllers.api
             return Created("room", response);
         }
 
+        [HttpDelete("{id}", Name = "DeleteRoom")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult> DeleteRoom(Guid id)
+        {
+            var deleteRoom = new DeleteRoomCommand() { RoomId = id };
+            await _mediator.Send(deleteRoom);
+            return NoContent();
+        }
     }
 }

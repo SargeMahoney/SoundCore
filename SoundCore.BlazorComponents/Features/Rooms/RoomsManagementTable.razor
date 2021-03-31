@@ -8,7 +8,7 @@
 
 
 <SfGrid @ref="RoomDatagrid" AllowPaging="true" Toolbar="@(new List<string>() { "Add", "Edit", "Delete","Search" })" TValue="RoomModel" DataSource="RoomsView">
-    <GridEditSettings AllowAdding="true" AllowEditing="true" AllowDeleting="true" Mode="EditMode.Dialog">
+    <GridEditSettings AllowAdding="true" AllowEditing="true" AllowDeleting="true" Mode="EditMode.Dialog" ShowDeleteConfirmDialog="true">
         <Template>
             @{
                 var room = (context as RoomModel);

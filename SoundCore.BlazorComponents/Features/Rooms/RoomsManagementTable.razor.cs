@@ -53,9 +53,16 @@ namespace SoundCore.BlazorComponents.Features.Rooms
                 }
                 else
                 {
+                    arg.Cancel = true;
                     await RoomsUpdate(arg.Data);
                    // await ModificaEquipment(arg);
                 }
+            }
+
+            if (arg.RequestType.Equals(Syncfusion.Blazor.Grids.Action.Delete))
+            {
+                arg.Cancel = true;
+                await DeleteRoom(arg.Data);
             }
         }
 
@@ -75,6 +82,26 @@ namespace SoundCore.BlazorComponents.Features.Rooms
             RoomsView.Remove(oldRoom);
             RoomsView.Add(room);
             await DatagridRefreshAfterDialogAction();
+        }
+
+
+        private async Task DeleteRoom(RoomModel room)
+        {
+            try
+            {
+                var deleteRoom = await _roomsService.DeleteRoom(_mapper.Map<Room>(room));
+         
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+            var oldRoom = RoomsView.FirstOrDefault(r => r.Id == room.Id);
+            RoomsView.Remove(oldRoom);
+            await DatagridRefreshAfterDialogAction();
+
         }
 
 

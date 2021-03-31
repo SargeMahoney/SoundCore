@@ -13,5 +13,7 @@ namespace SoundCore.BlazorComponents.Features.Rooms.Services
         Task<DataResult<Room>> AddRoom(Room newRoom);
 
         Task<DataResult<Room>> UpdateRoom(Room updatedRoom, Guid roomId);
+
+        Task<DataResult<Room>> DeleteRoom(Room roomToDelete);
     }
 }
