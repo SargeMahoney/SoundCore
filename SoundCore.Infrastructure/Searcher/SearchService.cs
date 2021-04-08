@@ -247,14 +247,9 @@ namespace SoundCore.Infrastructure.Searcher
                     SearchableString = document.Get("SearchableField"),
                     Type = document.Get("Type")
                 };
-                searchResults.Add(result);
-               
+                searchResults.Add(result);               
             }
-
-            return searchResults;
-      
-         
-
+            return searchResults;    
         }
     }
 }

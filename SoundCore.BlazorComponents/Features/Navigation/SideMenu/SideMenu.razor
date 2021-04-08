@@ -4,7 +4,7 @@
 @inject SoundCore.BlazorComponents.Features.Navigation.SideMenu.Services.ISideMenuService _sideMenuService;
 @implements IDisposable
 
-<SfSidebar Width="200px" Type="SidebarType.Push" IsOpen="true" >
+<SfSidebar @ref="sideBar" Width="200px" Type="SidebarType.Push" IsOpen="true" IsOpenChanged="CheckIfClosing" >
     <ChildContent>
         <ul class="nav flex-column mt-4 ">
             <li class="nav-item px-3 ">
@@ -32,6 +32,8 @@
 
 @code {
 
+    SfSidebar sideBar;
+
     private static string activeButton = "nav-link e-custom";
     private static string selectedButton = "nav-link e-custom selectedButton";
 
@@ -51,6 +53,10 @@
 
     }
 
+    void CheckIfClosing()
+    {
+        sideBar.IsOpen = true;
+    }
 
     void IDisposable.Dispose()
     {

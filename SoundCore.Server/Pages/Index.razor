@@ -11,61 +11,11 @@
 
 
 
-<textarea @bind="Searching" @bind:event="oninput" class="form-control" id="search"></textarea>
 
-<button type="button" class="btn btn-success" @onclick="SearchData">Search</button>
 
-@if (SearchResult.Count() > 0)
-{
-    @foreach (var item in SearchResult)
-    {
 
-        @switch (item.Type)
-        {
-            case nameof(Room):
-                <div class="row" style="background-color:gray">
-                    <p>@item.SearchableString - @item.Type</p>
-                </div>
-                break;
-            case nameof(Appointment):
-                <div class="row" style="background-color:lightblue">
-                    <p>@item.SearchableString - @item.Type</p>
-                </div>
-                break;
-            default:
-                break;
-        }
-
-    }
-}
 
 @code{
 
-    public string Searching { get; set; } = string.Empty;
-    public IEnumerable<SearchResult> SearchResult { get; set; } = new List<SearchResult>();
-
-    @code{
-        protected async override Task OnInitializedAsync()
-        {
-
-            await _sideMenuService.HomeButtonClicked();
-
-            var loadRoom = await _roomDataService.ListAllAsync();
-            var loadAppointment = await _appointmentDataService.ListAllAsync();
-            //   return base.OnInitializedAsync();
-        }
-    }
-
-
-
-
-    protected async Task SearchData()
-    {
-        if (string.IsNullOrWhiteSpace(Searching))
-        {
-            return;
-        }
-        SearchResult = await _searchService.Search(Searching.Trim());
-        this.StateHasChanged();
-    }
+   
 }
